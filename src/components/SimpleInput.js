@@ -3,14 +3,21 @@ import React, { useEffect, useState } from "react";
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  const [formISValid,setFormISValid]=useState(false)
+  
+
 
   const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsValid = !enteredNameIsValid && enteredNameTouched;
    
   useEffect(()=>{
- 
-    console.log('hi')
-  },[enteredName,enteredNameTouched])
+    if(enteredNameIsValid){
+      setFormISValid(true)
+    }
+    else {
+      setFormISValid(false)
+    }
+  },[enteredNameIsValid]);
  
 
   const nameInputChangeHandler = (event) => {
@@ -60,7 +67,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formISValid}>Submit</button>
       </div>
     </form>
   );
